@@ -1,11 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="clean"
@@ -17,7 +17,7 @@ ZSH_THEME="clean"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -74,39 +74,35 @@ plugins=(
   git
   zsh-syntax-highlighting
   zsh-autocomplete
-  web-search
 )
 
+## oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-source /Users/wenlyye/.brazil_completion/zsh_completion
 
-bindkey '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+## iterm2 shell integration
+test -e /Users/wenlyye/.iterm2_shell_integration.zsh && source /Users/wenlyye/.iterm2_shell_integration.zsh || true
+
+## zsh-autocomplete
+bindkey '^I' menu-complete
+bindkey "$terminfo[kcbt]" reverse-menu-complete
+
+## brazil cli completion
+source /Users/wenlyye/.brazil_completion/zsh_completion
 
 # User configuration
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH=$HOME/.toolbox/bin:$PATH
-export PATH="/usr/local/opt/node@12/bin:$PATH"
-export PATH=$PATH:/apollo/env/EnvImprovement/bin
+## toolbox
+export PATH=$PATH:$HOME/.toolbox/bin
 
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
-
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# Pyenv
+## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+## nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -121,17 +117,15 @@ eval "$(pyenv init -)"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias midway="kinit -f && mwinit -s"
-alias repair-elastic-search="python3 /Volumes/workplace/RepairPythonUtils/src/ReCommerceRepairPythonScripts/roe/inventory_picture/search_lpn_in_es.py"
-alias copy-dtr-test-input="python3 /Users/wenlyye/Desktop/copy_dtr_test_input.py"
 conduit-login() {
   if [[ -z "$1" ]]
   then
