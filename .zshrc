@@ -72,6 +72,7 @@ ZSH_THEME="clean"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  common-aliases
   zsh-syntax-highlighting
   zsh-autocomplete
 )
@@ -126,6 +127,7 @@ export NVM_DIR="$HOME/.nvm"
 # For a full list of active aliases, run `alias`.
 
 alias midway="kinit -f && mwinit -s"
+alias nvim-config="nvim /Users/wenlyye/.config/nvim/init.lua"
 conduit-login() {
   if [[ -z "$1" ]]
   then
